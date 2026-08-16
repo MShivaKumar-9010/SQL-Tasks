@@ -9,7 +9,8 @@ Write a query to display:
 Rules:
 * Salary >= 80000 → High
 * Salary >= 50000 → Medium
-* Salary < 50000 → Low
+* Salary < 50000 → 
+
 select emp_name,department,salary,
  case
  when salary>=80000 then "high" 
@@ -17,7 +18,8 @@ when salary>=50000 then "medium"
  else "low"
  end as salary_category 
 from employees;
-________________
+
+
 Q2. Student Performance
 Consider:
 students(student_id, student_name, marks)
@@ -31,6 +33,7 @@ Rules:
 * Marks >= 60 → Good
 * Marks >= 40 → Pass
 * Marks < 40 → Fail
+
 select student_name,marks, 
 case
  when marks>=90 then "Excellent" 
@@ -40,7 +43,6 @@ when marks>=75 then "Very Good"
 else "Fail"
  end as result
  from students;
-________________
 
 
 Q3. Department Average Salary
@@ -51,12 +53,14 @@ Display:
 * Department
 * Average salary
 Then display only those departments whose average salary is greater than 60000.
+
 with avg as
  (
  select department,avg(salary) as salary from employees group by department,salary
 )
  select * from avg where salary>60000;
-________________
+
+
 Q4. Find High-Spending Customers
 Consider:
 orders(order_id, customer_id, order_date, amount)
@@ -66,12 +70,14 @@ Using a CTE:
 Output:
 * Customer ID
 * Total spending
+
  with money as
 (
 select customer_id,sum(amount) as total_spent from orders group by customer_id 
 )
  select * from money where total_spent>100000;
-________________
+
+
 Q5. Employee Performance Analysis
 Consider:
 employees(emp_id, emp_name, department, salary, performance_score)
@@ -88,7 +94,6 @@ Rules for performance_status:
 * Employee score > department average → Above Average
 * Employee score = department average → Average
 * Employee score < department average → Below Average
-
 
 With abc as
 (
