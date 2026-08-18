@@ -1,0 +1,125 @@
+﻿Create a stored procedure to display all records from a table called Employees.
+
+
+delimiter //
+create procedure abc()
+begin
+select * from employees;
+end//
+call abc() //
+
+
+
+Write a stored procedure that accepts an EmployeeID and returns the employee details.
+
+
+delimiter //
+create procedure xy(in emp_id int )
+begin
+select * from employees where employeeID=emp_id;
+end //
+call xy(3)//
+
+
+
+Create a stored procedure that inserts a new employee into the Employees table with parameters:
+
+* Name
+
+* Department
+
+* Salary
+
+
+delimiter //
+ create procedure pm1()
+ begin
+ insert into employ values("Hasini","HR",50000);
+ end//
+ call pm1()//
+
+
+Write a stored procedure to update the salary of an employee using EmployeeID.
+
+
+delimiter //
+create procedure sal()
+begin
+update employ set salary=80000 where name='priya';
+end//
+call sal()//
+
+
+
+
+Create a stored procedure to delete an employee record using EmployeeID.
+
+
+delimiter //
+ create procedure sal1()
+ begin
+ delete from employ where name='Suresh';
+ end//
+ call sal1()//
+
+
+
+
+Write a stored procedure that takes Salary as input and displays employees whose salary is greater than that value.
+
+
+delimiter //
+create procedure sal(in emp_salary int)
+begin
+select * from employ where salary>emp_salary; 
+end//
+call sal(50000)//
+
+
+
+
+Write a stored procedure to calculate the average salary of employees.
+
+
+delimiter //
+create procedure sal3()
+begin
+select avg(salary) from employ;
+end//
+call sal3()//
+
+
+
+Create a stored procedure that returns the total number of employees in a department.
+
+
+delimiter //
+create procedure xyz()
+begin
+select count(department) from employ group by department;
+end//
+call xyz()//
+
+
+
+Write a stored procedure to find the maximum salary in the Employees table.
+ 
+ delimiter //
+ create procedure sal()
+ begin
+ select max(salary) from employ;
+ end//
+ call sal()//
+
+
+
+
+Create a stored procedure that gives a bonus (10%) to employees whose salary is below 50,000.
+
+
+delimiter //
+create procedure bonus() 
+begin 
+update employ set salary=salary+(salary*10/100) where salary<50000; 
+end//
+call bonus()//
