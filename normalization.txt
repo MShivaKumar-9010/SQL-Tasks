@@ -8,6 +8,8 @@ select * from customer;
 select * from product;
 select *from orders;
 select * from orderitem;
+
+
 2. Write an SQL query that lists all orders with the customer's name, product name, quantity, and total price per line item, demonstrating that the data can be retrieved without duplication.
 select
  o.order_number,
@@ -19,8 +21,12 @@ select
   join customer c on o.customer_id=c.customer_id
   join orderitem oi on o.order_id=oi.order_id
   join product p on oi.product_id=p.product_id;
+
+
 3. Provide an SQL statement that adds a unique index to enforce that a customer cannot have two orders with the same order number.
 select *from orders;
+
+
 4. Explain briefly (one or two sentences per table) why the final schema satisfies 3NF, referencing the functional dependencies you identified.
 Customer:
 customer_id → customer_name, email, phone, address
