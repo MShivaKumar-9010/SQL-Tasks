@@ -1,0 +1,32 @@
+﻿1. Identify the functional dependencies for the entities Customer, Product, Order, and OrderItem based on the description below and determine the appropriate normal form (up to 3NF).
+Create CREATE TABLE statements for each entity, defining:
+   * Primary keys
+   * Foreign keys to enforce relationships
+   * Appropriate data types and NOT NULL constraints
+Populate each table with at least five realistic rows of sample data using INSERT statements.
+select * from customer;
+select * from product;
+select *from orders;
+select * from orderitem;
+2. Write an SQL query that lists all orders with the customer's name, product name, quantity, and total price per line item, demonstrating that the data can be retrieved without duplication.
+select
+ o.order_number,
+ c.customer_name,
+ p.product_name,
+ oi.quantity
+(oi.quantity*oi.unit_price) as total_price
+  from orders o
+  join customer c on o.customer_id=c.customer_id
+  join orderitem oi on o.order_id=oi.order_id
+  join product p on oi.product_id=p.product_id;
+3. Provide an SQL statement that adds a unique index to enforce that a customer cannot have two orders with the same order number.
+select *from orders;
+4. Explain briefly (one or two sentences per table) why the final schema satisfies 3NF, referencing the functional dependencies you identified.
+Customer:
+customer_id → customer_name, email, phone, address
+Product:
+product_id → product_name, price, stock_quantity
+Orders:
+order_id → customer_id, order_number, order_date
+OrderItem:
+order_item_id → order_id, product_id, quantity, unit_price
