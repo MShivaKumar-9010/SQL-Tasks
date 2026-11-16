@@ -1,62 +1,45 @@
 ﻿ASSIGNMENT
+Task On Window Functions:
 
+1. Display employee name, department, salary, and total salary of all employees using a window function.
+ select emp_name,dept_name,salary,sum(salary) over() from employees;
 
-Task On Window Functions
-
-
-1. Display employee name, department, salary, and total                                                                    salary of all employees using a window function.
-
-
-select emp_name,dept_name,salary,sum(salary) over() from employees;
 2. Display each employee's salary along with the average salary of their department.
-
-
  select emp_name,dept_name,salary,avg(salary) over(partition by dept_name) from employees;
+
 3. Display employee name, department, salary, and employee count in each department.
-
-
  select emp_name,dept_name,salary,count(salary) over(partition by dept_name) from employees;
+
 4. Display each employee's salary along with the maximum and minimum salary in their respective department.
-
-
  select *,max(salary) over(partition by dept_name) from employees;
  select *,min(salary) over(partition by dept_name) from employees;
+
 5. Display each employee's salary along with the next employee's salary based on joining date.
- 
-select *,lead(salary) over(order by joining_date) as next_salary from employees;
+  select *,lead(salary) over(order by joining_date) as next_salary from employees;
+
 6. Calculate the difference between the current employee's salary and the previous employee's salary.
-select *,lag(salary) over(order by joining_date) as previous_salary,salary-lag(salary) over(order by joining_date) as salary_difference from employees;
+ select *,lag(salary) over(order by joining_date) as previous_salary,salary-lag(salary) over(order by joining_date) as salary_difference from employees;
+
 7. Display employee name, salary, previous salary, and next salary department-wise.
+ select emp_name,salary,lag(salary) over (partition by dept_name order by joining_date) previous_salary ,lead(salary) over(partition by dept_name order by joining_date) as next_salary from employees;
 
-
-select emp_name,salary,lag(salary) over (partition by dept_name order by joining_date) previous_salary ,lead(salary) over(partition by dept_name order by joining_date) as next_salary from employees;
  8. Display each employee's salary along with the highest salary employee's salary in their department using FIRST_VALUE().
+ select *,first_value(salary) over (partition by dept_name order by salary desc) as max_salary from employees;
 
-
-select *,first_value(salary) over (partition by dept_name order by salary desc) as max_salary from employees;
 9. Display each employee's salary along with the lowest salary in their department using LAST_VALUE().
+ select *,last_value(salary) over (partition by dept_name) as min_salary from employees;
 
-
-select *,last_value(salary) over (partition by dept_name) as min_salary from employees;
  10. Assign a rank to employees based on salary in descending order.
+ select *,rank() over(order by salary desc) from employees;
 
-
-select *,rank() over(order by salary desc) from employees;
 11. Display department-wise salary ranking using RANK().
+ select emp_name,dept_name,salary,rank() over(partition by dept_name order by salary desc) from employees;
 
-
-select emp_name,dept_name,salary,rank() over(partition by dept_name order by salary desc) from employees;
 12. Display department-wise salary ranking using DENSE_RANK().
-
-
  select emp_name,dept_name,salary,dense_rank() over(partition by dept_name order by salary) from employees;
+
 13. Find the first two highest-paid employees in each department using ROW_NUMBER().
-
-
  select * from (select emp_name,dept_name,salary,row_number() over(partition by dept_name order by salary desc) as rn from employees) as t where rn<=2;
 
-
 14. Find the latest joined employee in each department using ROW_NUMBER()
-
-
-select*from(emp_name,dept_name,salary,joining_date,row_number() over(partition by dept_name order by joining_date desc) as rn from employees) as t where rn=1;
+ select*from(emp_name,dept_name,salary,joining_date,row_number() over(partition by dept_name order by joining_date desc) as rn from employees) as t where rn=1;
